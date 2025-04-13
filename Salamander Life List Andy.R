@@ -9,7 +9,7 @@ library(magick)
 library(shadowtext)
 
 # Get current list of US salamanders
-#download.file("https://amphibiaweb.org/cgi/amphib_ws_locality?where-isocc=us&rel-isocc=like","USspecies_list.xml",sep="")
+download.file("https://amphibiaweb.org/cgi/amphib_ws_locality?where-isocc=us&rel-isocc=like","USspecies_list.xml",sep="")
 doc<-xmlParse('USspecies_list.xml')
 order<- xmlToDataFrame(node=getNodeSet(doc,'//amphibiaweb/amphibian/order'))[[1]]
 family <- xmlToDataFrame(node=getNodeSet(doc,'//amphibiaweb/amphibian/family'))[[1]]
@@ -24,11 +24,12 @@ lifelist<-read.csv('MyLifeList.csv')
 spseen<-nrow(lifelist)
 sptotal<-length(caudatelist)
 
+
 # Last New Species
 last_sp<-tail(lifelist$species,n=1)
 last_cn<-tail(lifelist$common_name,n=1)
-last_lo<-tail(lifelist$location,n=1)
-last_yr<-tail(lifelist$year,n=1)
+last_lo<-tail(lifelist$location_Andy,n=1)
+last_yr<-tail(lifelist$year_Andy,n=1)
 
 #compare genus seen to total 
 genusALL <- word(caudatelist,1)
@@ -99,8 +100,8 @@ p <- ggplot(data) +
   geom_text(data=label_data, aes(x=id.x, y=-12, label=paste(seen,'/',tot,sep=''), hjust= hjust), color= 'black', fontface="bold",alpha=1, size=3, angle= label_data$angle, inherit.aes = FALSE )
 
 # accumulation curve
-accumulation<-c(0,cumsum(table(lifelist$year)),max(cumsum(table(lifelist$year))))
-newyears<-as.numeric(c(as.numeric(min(names(table(lifelist$year))))-1,names(table(lifelist$year)),format(Sys.Date(), "%Y")))
+accumulation<-c(0,cumsum(table(lifelist$year_Andy)),max(cumsum(table(lifelist$year_Andy))))
+newyears<-as.numeric(c(as.numeric(min(names(table(lifelist$year_Andy))))-1,names(table(lifelist$year_Andy)),format(Sys.Date(), "%Y")))
 accurve.df<-data.frame(accumulation, newyears)
 
 q<-ggplot(data=accurve.df,aes(x = newyears, y = accumulation, group = 1))+geom_step()+geom_point()+xlab('Year')+ylab('New Species Seen')+theme(axis.title.x = element_text(face='bold'),axis.title.y = element_text(face='bold'),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_rect(fill = "transparent",colour = NA),        plot.background = element_rect(fill = "transparent",colour = NA),axis.line = element_line(colour = "black"))
@@ -117,5 +118,5 @@ finalgraph<- graph + draw_text('Yet to See', x=0.8,y=0.94,size=22,color='darktur
   
   draw_image("Ambystoma cingulatum.png",x=0.42, y=0.08, scale=0.1)+draw_image("Batrachoseps.png",x=0.4, y=0.2, scale=0.1)+draw_image("Pseudotriton.png",x=-0.3, y=-0.04, scale=0.1)+draw_image("Desmognathus_ocoee.png",x=0.22, y=0.35, scale=0.1)+draw_image("Gyrinophilus porphyriticus dunni.png",x=0.18, y=-0.4, scale=0.2)+draw_image("Necturus lodingi.png",x=0.36, y=-0.19, scale=0.15)+draw_image('Pseudobranchus striatus.png',x=-0.37, y=-0.13, scale=0.2)+draw_image("Plethodon shermani.png",x=0.1, y=0.4, scale=0.15)+draw_image("Stereochilus marginatus.png",x=-0.1, y=0.25, scale=0.1)+draw_image("Dicamptodon.png",x=0.29, y=-0.35, scale=0.15)+draw_image("Eurycea_lucifuga.png",x=0.3, y=0.26, scale=0.1)+draw_image("urspelerpes.png",x=0.01, y=0.28, scale=0.07)+draw_image("Siren.png",x=-0.04, y=-0.39, scale=0.15)+draw_image("Notophthalmus.png",x=-0.4, y=-0.22, scale=0.15)+draw_image("Amphiuma_means.png",x=-0.24, y=-0.27, scale=0.15)+draw_image("Taricha.png",x=-0.14, y=-0.34, scale=0.15)+draw_image("Rhyacotriton.png",x=0.05, y=-0.44, scale=0.1)+draw_image("Aneides.png",x=0.42, y=-0.02, scale=0.17)+draw_image("Ensatina.png",x=0.42, y=-0.11, scale=0.13)+draw_image("Cryptobranchus.png",x=-0.38, y=0.05, scale=0.22)+draw_image("Hemidactylium.png",x=-0.27, y=0.14, scale=0.1)+draw_image("phaeognathus.png",x=-0.27, y=0.2, scale=0.2)+draw_image("Hydromantes.png",x=0.34, y=-0.25, scale=0.1)
 
-ggsave(finalgraph, file="SalamanderLifeList.png", width=10, height=10)
+ggsave(finalgraph, file="SalamanderLifeListAndy.png", width=10, height=10)
 
