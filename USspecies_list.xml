@@ -1870,7 +1870,7 @@ http://youtu.be/mly9azNW2hE</video></amphibian>
 <order>Caudata</order>
 <family>Plethodontidae</family>
 <scientificname>Phaeognathus hubrichti</scientificname>
-<image>0000 0000 0202 0023</image>
+<image>0000 0000 0625 0289</image>
 <iucn_uuid>16801</iucn_uuid>
 </amphibian>
 <amphibian>
@@ -2447,6 +2447,11 @@ http://youtu.be/mly9azNW2hE</video></amphibian>
 <scientificname>Siren lacertina</scientificname>
 <image>0000 0000 1210 2736</image>
 <iucn_uuid>59492</iucn_uuid>
+</amphibian>
+<amphibian>
+<order>Caudata</order>
+<family>Sirenidae</family>
+<scientificname>Siren nettingi</scientificname>
 </amphibian>
 <amphibian>
 <order>Caudata</order>
